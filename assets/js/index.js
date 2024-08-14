@@ -91,8 +91,26 @@ function loadTableFetch(){
     let i = 0; 
     fetch("https://fakestoreapi.com/products").then(response => response.json()).then(data => {
         let tabla = '<tr><th>Id</th><th></th><th>Title</th><th>Price</th><th>Description</th><th>Category</th><th></th></tr>';
-
+        let cards = '<div class="row row-cols-1 row-cols-md-3 g-4">';
+        
         for (let art of data) {
+            cards += `
+                    <div class="col">
+                        <div class="card h-100 text-center">
+                            <h5 class="card-title font-size-20 mt-3"><b>${art.category}</b></h5>
+                            <div class="text-center">
+                                <img src="${art.image}" width="20%" class="mt-3" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title font-size-16"><b>${art.title}</b></h5>
+                                <p class="card-text font-size-14">${art.description}</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class=""><b>$. ${art.price}</b></small>
+                            </div>
+                        </div>
+                    </div>`;
+
             i++;
             tabla += `<tr>
                           <td scope='row'>${art.id}</td>
@@ -105,6 +123,9 @@ function loadTableFetch(){
                      </tr>`
         }
 
+        cards += `</div>`;
+
+        document.getElementById("cardarticulos").innerHTML = cards;
         document.getElementById("articulos").innerHTML = tabla;
     });
 }
